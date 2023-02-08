@@ -6,7 +6,7 @@ function App() {
   const { register, handleSubmit } = useForm();
   const [data, setData] = useState("");
 
-  const postData = async (password) => {
+  const postData = async () => {
     console.log("test");
     const response = await axios.get('http://localhost:5000/test',
       {
@@ -29,7 +29,7 @@ function App() {
   // };
 
   return (
-    <form onSubmit={test()} >
+    <form onSubmit={postData()} >
       <input {...register("Mail")} placeholder="Mail" />
       <input {...register("Password")} placeholder="password" />
       <p>{data}</p>
