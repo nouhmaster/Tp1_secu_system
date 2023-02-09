@@ -19,7 +19,7 @@ def password():
     s = rsa_sign(msg_byte,secret_b)
     enc = rsa(msg_byte,public_a)
     m = (s,enc)
-    connectionDB.add_user("wewesesh",str(m))
+    connectionDB.add_user("sss",str(m))
     return "Votre mot de passe a été enregistré avec succès."
     
     
