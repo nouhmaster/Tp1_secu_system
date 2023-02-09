@@ -36,7 +36,6 @@ def create_database():
 def get_users():
     conn = create_database()
     df = pd.read_sql_query("SELECT * FROM utilisateurs", conn)
-    print(df)
     return df
 
 
@@ -51,11 +50,21 @@ def add_user( nom, password):
         df = df.append({"id":unique_id,"nom": nom, "password":password}, ignore_index=True)
         df.to_sql("utilisateurs", conn, if_exists="append", index=False)
         print("Utilisateur ajouté avec succès.")
+        return "Utilisateur ajouté avec succès."
     else:
         print("L'utilisateur existe déjà.")
-    print(df)
+        return "L'utilisateur existe déjà."
     
+def user_exists(nom):
+    df = get_users()
+    if (df[df['nom'] == nom].empty):
+        return False
+    else :
+        return True
 
+def get_password(nom):
+    df = get_users()
+    return df[df['nom'] == nom]['password'].values[0]
 # # Lecture des données de la base de données dans un DataFrame
 # df = pd.read_sql_query("SELECT * FROM utilisateurs", conn)
 # unique_id = str(uuid.uuid4())

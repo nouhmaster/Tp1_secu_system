@@ -35,8 +35,9 @@ def rsa_sign(message,key):
     return rsa(msg_sign,key)
 
 def rsa_verify(kp,ks,m):
-        s = rsa(m[0],kp)
-        dec = rsa(m[1],ks)
+        print(ks)
+        s = rsa((m[0]),kp)
+        dec = rsa((m[1]),ks)
         if( s != h(dec)):
             print("ERROR")
             exit()
@@ -48,14 +49,14 @@ def rsa_verify(kp,ks,m):
 public_a , secret_a =  gen_rsa_keypair(512)
 public_b , secret_b =  gen_rsa_keypair(512)
 
-# msg = "text pour test"
-# print("message en claire : ",msg,"\n")
+msg = "text pour test"
+print("message en claire : ",msg,"\n")
 
-# msg_byte = to_Byte(msg)
-# print("message en byte: ",msg_byte,"\n")
-# s = rsa_sign(msg_byte,secret_b)
-# print("message signé hashé avec la clef secret b: ",s,"\n")
-# enc = rsa(msg_byte,public_a)
-# print("message chiffre avec rsa et la clef public de a: ",enc,"\n")
-# m = (s,enc)
-# print("message dechiffre : ",rsa_verify(public_b,secret_a,m))
+msg_byte = to_Byte(msg)
+print("message en byte: ",msg_byte,"\n")
+s = rsa_sign(msg_byte,secret_b)
+print("message signé hashé avec la clef secret b: ",s,"\n")
+enc = rsa(msg_byte,public_a)
+print("message chiffre avec rsa et la clef public de a: ",enc,"\n")
+m = (s,enc)
+print("message dechiffre : ",rsa_verify(public_b,secret_a,m))

@@ -139,3 +139,30 @@ input[type="submit"]:active {
 .preact:hover {
     opacity: 1;
 }
+
+.formCenter form {
+    background-color: #413f3f;
+    padding: 30px;
+    border-radius: 4px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.formCenter {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.formCenter img {
+    width: 10vw;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.ButtonGroup {
+    gap: 10%;
+    display: flex;
+}

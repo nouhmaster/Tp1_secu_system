@@ -1,40 +1,74 @@
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import axios from 'axios';
+import logo from '../src/logo512.png';
+import Swal from 'sweetalert2';
+
 
 function App() {
   const { register, handleSubmit } = useForm();
   const [data, setData] = useState("");
+  const [mail, setMail] = useState("");
+  const [password, setPassword] = useState("");
 
   const postData = async () => {
-    console.log("test");
-    const response = await axios.get('http://localhost:5000/test',
-      {
-        headers: {
-          // remove headers
-        }
-      });
-    console.log(response.data);
+    const test = await axios.get(`http://127.0.0.1:5000/password/?psw=${password}&mail=${mail}`);
+    Swal.fire({
+      title: test.data,
+      onBeforeOpen: () => {
+        Swal.showLoading()
+      }
+    })
   };
 
-  // async () => {$
+  function handleReset(event) {
+    event.preventDefault();
+    setMail("");
+    setPassword("");
+  }
 
-  // try {
-  //   const res = await fetch("http://localhost:5000/test");
-  //   const response = await res.text();
-  //   console.log(response);
-  // } catch (error) {
-  //   console.error(error);
-  // }
-  // };
+  const handleValidate = async () => {
+    console.log("test");
+    const test = await axios.get(`http://127.0.0.1:5000/connection/?psw=${password}&mail=${mail}`);
+    Swal.fire({
+      title: test.data,
+      onBeforeOpen: () => {
+        Swal.showLoading()
+      }
+    })
+  }
+
+  function handleAddAccount(event) {
+    event.preventDefault();
+    // Code pour le bouton Ajouter Compte
+    console.log("Mail : ", mail);
+    console.log("Password : ", password);
+  }
 
   return (
-    <form onSubmit={postData()} >
-      <input {...register("Mail")} placeholder="Mail" />
-      <input {...register("Password")} placeholder="password" />
-      <p>{data}</p>
-      <input type="submit" />
-    </form>
+    <div className="formCenter">
+      <form>
+        <img src={logo} alt="" />
+        <input
+          {...register("Mail")}
+          placeholder="Mail"
+          value={mail}
+          onChange={e => setMail(e.target.value)}
+        />
+        <input
+          {...register("Password")}
+          placeholder="password"
+          value={password}
+          onChange={e => setPassword(e.target.value)}
+        />
+        <p>{data}</p>
+        <div className="ButtonGroup">
+          <input type="button" value="Reset" onClick={handleReset} />
+          <input type="button" value="Valider" onClick={handleValidate} />
+          <input type="button" value="Ajouter Compte" onClick={postData} />
+        </div>
+      </form>
+    </div>
   );
 }
 
